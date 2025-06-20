@@ -22,7 +22,7 @@ cd data/project/hyperf-skeleton/
 # 4. 安装依赖
 composer install
 
-# 5. 运行
-php bin/hyperf.php start
+# 5. 运行 热更新：不需要修改代码后重启了。
+php bin/hyperf.php server:watch
 ```
 
