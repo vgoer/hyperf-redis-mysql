@@ -1,0 +1,44 @@
+services:
+
+  hyperf:
+    image: hyperf/hyperf:8.1-alpine-v3.18-swoole
+    container_name: my-hyperf
+    entrypoint: /bin/sh
+    privileged: true
+    user: root
+    ports:
+      - 9501:9501
+    volumes:
+      - ./hyperf-skeleton:/data/project/hyperf-skeleton
+    tty: true
+    stdin_open: true
+
+
+  redis:
+    container_name: my-redis  # 指定容器名称
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis_data:/data  # 挂载数据卷到宿主机
+    environment:
+      - REDIS_PASSWORD=yourpassword # 密码
+    command: redis-server --requirepass $$REDIS_PASSWORD --appendonly yes # 启用 AOF 持久化
+    restart: unless-stopped  # 添加重启策略（推荐）
+
+
+  mysql:
+    container_name: my_mysql
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=yourpassword
+      - MYSQL_DATABASE=testdb
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+
+
+
