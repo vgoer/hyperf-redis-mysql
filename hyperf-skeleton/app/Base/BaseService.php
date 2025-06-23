@@ -20,7 +20,6 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 
 class BaseService
 {
-
     // 依赖注入获取请求
     #[Inject]
     protected RequestInterface $request;
@@ -69,7 +68,6 @@ class BaseService
         $this->orderType = $type;
     }
 
-
     /**
      * 分页查询数据.
      * @param mixed $query
@@ -77,7 +75,6 @@ class BaseService
      */
     public function getList($query)
     {
-
         $saiType = $this->request->input('saiType', 'list');
         $page = $this->request->input('page', 1);
         $limit = $this->request->input('limit', 10);

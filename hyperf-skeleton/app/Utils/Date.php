@@ -1,50 +1,66 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * This file is part of goer.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  3088760685@qq.com
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
+
 namespace App\Utils;
 
 class Date
 {
+    public const FORMAT_DAY = 'Y-m-d';
 
-    public static string $format = 'Y-m-d H:i:s';
-    const FORMAT_DAY = 'Y-m-d';
-    const FORMAT_MONTH = 'Y-m';
-    const FORMAT_SECOND = 'Y-m-d H:i:s';
-    const START_SECOND = '00:00:00';
-    const END_SECOND = '23:59:59';
-    const CALCULATE_MODE_SECOND = 1;
-    const CALCULATE_MODE_MIN = 2;
-    const CALCULATE_MODE_HOUR = 3;
-    const CALCULATE_MODE_DAY = 4;
-    private static string $start = '00:00:00';
-    private static string $end = '23:59:59';
+    public const FORMAT_MONTH = 'Y-m';
 
-    const DIVISOR = [
+    public const FORMAT_SECOND = 'Y-m-d H:i:s';
+
+    public const START_SECOND = '00:00:00';
+
+    public const END_SECOND = '23:59:59';
+
+    public const CALCULATE_MODE_SECOND = 1;
+
+    public const CALCULATE_MODE_MIN = 2;
+
+    public const CALCULATE_MODE_HOUR = 3;
+
+    public const CALCULATE_MODE_DAY = 4;
+
+    public const DIVISOR = [
         self::CALCULATE_MODE_SECOND => 1,
         self::CALCULATE_MODE_MIN => 60,
         self::CALCULATE_MODE_HOUR => 3600,
-        self::CALCULATE_MODE_DAY => 86400
+        self::CALCULATE_MODE_DAY => 86400,
     ];
 
+    public static string $format = 'Y-m-d H:i:s';
+
+    private static string $start = '00:00:00';
+
+    private static string $end = '23:59:59';
+
     /**
-     * 格式化
-     * @param int $time
-     * @return string
+     * 格式化.
+     * @param mixed $format
      */
     public static function format(int $time, $format = self::FORMAT_SECOND): string
     {
         return date($format, $time);
     }
 
-    /**
-     * @param string $format
-     * @return string
-     */
     public static function now(string $format = ''): string
     {
         return date($format ?: self::$format);
     }
 
-    public static function week(string $date){
+    public static function week(string $date)
+    {
         return date('w', strtotime($date));
     }
 
@@ -59,63 +75,48 @@ class Date
     }
 
     /**
-     * 从指定日减去$subDay天
-     * @param string $date
-     * @param int $subDay
-     * @param string $format
-     * @return string
+     * 从指定日减去$subDay天.
      */
     public static function subDay(string $date, int $subDay, string $format = ''): string
     {
         $dateTime = date_create($date);
-        $subDayStr = $subDay . " days";
+        $subDayStr = $subDay . ' days';
         $res = date_sub($dateTime, date_interval_create_from_date_string($subDayStr));
         return date_format($res, $format ?: self::FORMAT_DAY);
     }
 
-    public static function addDay($date, $addDay, $format  = ''){
-        $dateTime =  date_create($date);
-        $addDayStr  =  $addDay.' days';
+    public static function addDay($date, $addDay, $format = '')
+    {
+        $dateTime = date_create($date);
+        $addDayStr = $addDay . ' days';
         $res = date_add($dateTime, date_interval_create_from_date_string($addDayStr));
         return date_format($res, $format ?: self::FORMAT_DAY);
     }
 
     /**
-     * 求两个日期相差天数
-     * @param string $date1
-     * @param string $date2
-     * @return int
+     * 求两个日期相差天数.
      */
     public static function dateSubDays(string $date1, string $date2): int
     {
         $end = strtotime($date1);
         $start = strtotime($date2);
-        return (int)round(abs(bcsub($end, $start)) / 86400);
+        return (int) round(abs(bcsub($end, $start)) / 86400);
     }
 
     /**
-     * 从指定月减去$subMonth月
-     * @param string $date
-     * @param int $subMonth
-     * @param string $format
-     * @return string
+     * 从指定月减去$subMonth月.
      */
     public static function subMonth(string $date, int $subMonth, string $format = ''): string
     {
         empty($format) && $format = 'Y-m';
         $dateTime = date_create($date);
-        $subStr = $subMonth . " months";
+        $subStr = $subMonth . ' months';
         $res = date_sub($dateTime, date_interval_create_from_date_string($subStr));
         return date_format($res, $format);
     }
 
-
     /**
-     * 加天数
-     * @param string $date
-     * @param int $day
-     * @param string $format
-     * @return string
+     * 加天数.
      */
     public static function plusDays(string $date, int $day, string $format = ''): string
     {
@@ -124,11 +125,7 @@ class Date
     }
 
     /**
-     * 减天数
-     * @param string $date
-     * @param int $day
-     * @param string $format
-     * @return string
+     * 减天数.
      */
     public static function subDays(string $date, int $day, string $format = ''): string
     {
@@ -137,9 +134,7 @@ class Date
     }
 
     /**
-     * 日期格式化为月
-     * @param $date
-     * @return string
+     * 日期格式化为月.
      */
     public static function dateToMonth($date): string
     {
@@ -147,9 +142,8 @@ class Date
     }
 
     /**
-     * 日期当天开始时间
+     * 日期当天开始时间.
      * @param $date 不传默认当天
-     * @return string
      */
     public static function startOfDate($date = ''): string
     {
@@ -158,9 +152,8 @@ class Date
     }
 
     /**
-     * 日期当天结束时间
+     * 日期当天结束时间.
      * @param $date 不传默认当天
-     * @return string
      */
     public static function endOfDate($date = ''): string
     {
@@ -169,8 +162,7 @@ class Date
     }
 
     /**
-     * 今日开始时间
-     * @return string
+     * 今日开始时间.
      */
     public static function startOfToday(): string
     {
@@ -178,8 +170,7 @@ class Date
     }
 
     /**
-     * 今日结束时间
-     * @return string
+     * 今日结束时间.
      */
     public static function endOfToday(): string
     {
@@ -187,11 +178,8 @@ class Date
     }
 
     /**
-     * $source是否在$target之后
-     * @param $source
-     * @param string $target
+     * $source是否在$target之后.
      * @param bool $eqSupport 是否允许边界相等
-     * @return bool
      */
     public static function after($source, string $target = '', bool $eqSupport = false): bool
     {
@@ -200,11 +188,8 @@ class Date
     }
 
     /**
-     * $source是否在$target之前
-     * @param $source
-     * @param string $target
+     * $source是否在$target之前.
      * @param bool $eqSupport 是否允许边界相等
-     * @return bool
      */
     public static function before($source, string $target = '', bool $eqSupport = false): bool
     {
@@ -213,7 +198,7 @@ class Date
     }
 
     /**
-     * 条件查询
+     * 条件查询.
      * @param $type 1:今日  2:昨日  3:近七天  4:近30天
      * @return array
      */
@@ -239,9 +224,7 @@ class Date
     }
 
     /**
-     * 某月开始时间  默认当月
-     * @param string $month
-     * @return string
+     * 某月开始时间  默认当月.
      */
     public static function startOfMonth(string $month = ''): string
     {
@@ -250,9 +233,7 @@ class Date
     }
 
     /**
-     * 某月结束时间 默认当月
-     * @param string $month
-     * @return string
+     * 某月结束时间 默认当月.
      */
     public static function endOfMonth(string $month = ''): string
     {
@@ -260,21 +241,20 @@ class Date
         return $month . '-' . date('t') . ' ' . self::END_SECOND;
     }
 
-
     /**
-     * 今日时间范围
+     * 今日时间范围.
      * @return string[]
      */
     public static function betweenToday(): array
     {
         return [
-            self::now('Y-m-d') . " " . self::$start,
-            self::now('Y-m-d') . ' ' . self::$end
+            self::now('Y-m-d') . ' ' . self::$start,
+            self::now('Y-m-d') . ' ' . self::$end,
         ];
     }
 
     /**
-     * 昨天时间范围
+     * 昨天时间范围.
      * @return string[]
      */
     public static function betweenYesterday(): array
@@ -282,13 +262,12 @@ class Date
         $yesterday = self::subDay(self::now(), 1, self::FORMAT_DAY);
         return [
             $yesterday . ' ' . self::START_SECOND,
-            $yesterday . ' ' . self::END_SECOND
+            $yesterday . ' ' . self::END_SECOND,
         ];
     }
 
-
     /**
-     * 近七天
+     * 近七天.
      * @return string[]
      */
     public static function betweenRecentWeek(): array
@@ -297,12 +276,12 @@ class Date
         $start = self::subDay($end, 7) . ' ' . self::START_SECOND;
         return [
             $start,
-            $end
+            $end,
         ];
     }
 
     /**
-     * 近三十天时间范围
+     * 近三十天时间范围.
      * @return string[]
      */
     public static function betweenRecentMonth(): array
@@ -311,14 +290,12 @@ class Date
         $startDay = self::subDay($endDay, 30);
         return [
             $startDay . ' ' . self::START_SECOND,
-            $endDay . ' ' . self::END_SECOND
+            $endDay . ' ' . self::END_SECOND,
         ];
     }
 
     /**
-     * 判断是否在今天
-     * @param $date
-     * @return bool
+     * 判断是否在今天.
      */
     public static function inToday($date): bool
     {
@@ -326,9 +303,7 @@ class Date
     }
 
     /**
-     * 判断是否在本月
-     * @param $date
-     * @return bool
+     * 判断是否在本月.
      */
     public static function inThisMonth($date): bool
     {
@@ -336,9 +311,7 @@ class Date
     }
 
     /**
-     * 计算两个日期相差时间
-     * @param $date1
-     * @param $date2
+     * 计算两个日期相差时间.
      * @param int $mode 1:秒数  2:分钟数  3:小时  4:天数
      * @return float
      */
@@ -355,23 +328,19 @@ class Date
     }
 
     /**
-     * 当前时间减去指的分钟数
-     * @param $date
-     * @param $minutes
+     * 当前时间减去指的分钟数.
      * @return false|string
      */
-    public static function subMinutes($date, $minutes){
+    public static function subMinutes($date, $minutes)
+    {
         $time = strtotime($date);
-        $resTime = $time - $minutes*60;
+        $resTime = $time - $minutes * 60;
         return date(self::FORMAT_SECOND, $resTime);
     }
 
     /**
-     * 判断日期是否在指定日期时间内
-     * @param $date
-     * @param array $dates
+     * 判断日期是否在指定日期时间内.
      * @param bool $eqSupport 支持相等的边界
-     * @return bool
      */
     public static function between($date, array $dates, bool $eqSupport = false): bool
     {
@@ -379,9 +348,7 @@ class Date
     }
 
     /**
-     * 判断日期是否在最近一个月内
-     * @param $date
-     * @return bool
+     * 判断日期是否在最近一个月内.
      */
     public static function inRecentMonth($date): bool
     {
@@ -390,22 +357,18 @@ class Date
     }
 
     /**
-     * 判断两个时间段是否存在交叉
-     * @param $dateLine1
-     * @param $dateLine2
-     * @return bool
+     * 判断两个时间段是否存在交叉.
      */
     public static function hasCross($dateLine1, $dateLine2): bool
     {
-        if ($dateLine1[0] == $dateLine2[0] && $dateLine1[1] == $dateLine2[1]){
+        if ($dateLine1[0] == $dateLine2[0] && $dateLine1[1] == $dateLine2[1]) {
             return true;
         }
-        foreach ($dateLine1 as $date){
-            if (self::between($date, $dateLine2)){
+        foreach ($dateLine1 as $date) {
+            if (self::between($date, $dateLine2)) {
                 return true;
             }
         }
         return false;
     }
-
 }

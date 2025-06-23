@@ -1,7 +1,16 @@
 <?php
 
-namespace App\Utils;
+declare(strict_types=1);
+/**
+ * This file is part of goer.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  3088760685@qq.com
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
+namespace App\Utils;
 
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
@@ -32,10 +41,10 @@ class AliyunSms
     // 获取单例实例
     public static function getInstance()
     {
-        if (!self::$instance) {
-            $accessKeyId = getenv("ALIYUN_KEY");
-            $accessKeySecret = getenv("ALIYUN_SECRET");
-            $signName = getenv("ALIYUN_SIGN_NAME");
+        if (! self::$instance) {
+            $accessKeyId = getenv('ALIYUN_KEY');
+            $accessKeySecret = getenv('ALIYUN_SECRET');
+            $signName = getenv('ALIYUN_SIGN_NAME');
 
             self::$instance = new self($accessKeyId, $accessKeySecret, $signName);
         }
@@ -46,9 +55,10 @@ class AliyunSms
      * 发送验证码
      * @param $phone 手机号
      * @param $templateParam 验证码等参数
+     * @param mixed $templateCode
      * @return bool 成功是否
      */
-    public function sendSms($phone, $templateParam,$templateCode)
+    public function sendSms($phone, $templateParam, $templateCode)
     {
         try {
             AlibabaCloud::accessKeyClient($this->accessKeyId, $this->accessKeySecret)
@@ -74,16 +84,14 @@ class AliyunSms
 
             if ($response['Code'] == 'OK') {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } catch (ClientException $e) {
-            Log::info("sendSms1:" . $e->getErrorMessage());
+            Log::info('sendSms1:' . $e->getErrorMessage());
             return false;
         } catch (ServerException $e) {
-            Log::info("sendSms2:" . $e->getErrorMessage());
+            Log::info('sendSms2:' . $e->getErrorMessage());
             return false;
         }
     }
-
 }
