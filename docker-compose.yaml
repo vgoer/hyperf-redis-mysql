@@ -23,7 +23,7 @@ services:
       - ./redis_data:/data  # 挂载数据卷到宿主机
     environment:
       - REDIS_PASSWORD=yourpassword # 密码
-    command: redis-server --requirepass $$REDIS_PASSWORD --appendonly yes # 启用 AOF 持久化
+    command: redis-server --requirepass yourpassword  --appendonly yes # 启用 AOF 持久化
     restart: unless-stopped  # 添加重启策略（推荐）
 
 

@@ -9,13 +9,8 @@ declare(strict_types=1);
  * @contact  3088760685@qq.com
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+use function Hyperf\Support\env;
+
 return [
-    'scan' => [
-        'paths' => [
-            BASE_PATH . '/app',
-        ],
-        'ignore_annotations' => [
-            'mixin',
-        ],
-    ],
+    'app_debug' => env('APP_DEBUG', false),
 ];

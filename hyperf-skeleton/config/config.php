@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 /**
- * This file is part of Hyperf.
+ * This file is part of goer.
  *
  * @link     https://www.hyperf.io
  * @document https://hyperf.wiki
- * @contact  group@hyperf.io
+ * @contact  3088760685@qq.com
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -17,6 +17,7 @@ use function Hyperf\Support\env;
 return [
     'app_name' => env('APP_NAME', 'skeleton'),
     'app_env' => env('APP_ENV', 'dev'),
+    'app_debug' => env('APP_DEBUG', false),
     'scan_cacheable' => env('SCAN_CACHEABLE', false),
     StdoutLoggerInterface::class => [
         'log_level' => [
