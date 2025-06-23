@@ -135,6 +135,7 @@ class Date
 
     /**
      * 日期格式化为月.
+     * @param mixed $date
      */
     public static function dateToMonth($date): string
     {
@@ -180,6 +181,7 @@ class Date
     /**
      * $source是否在$target之后.
      * @param bool $eqSupport 是否允许边界相等
+     * @param mixed $source
      */
     public static function after($source, string $target = '', bool $eqSupport = false): bool
     {
@@ -190,6 +192,7 @@ class Date
     /**
      * $source是否在$target之前.
      * @param bool $eqSupport 是否允许边界相等
+     * @param mixed $source
      */
     public static function before($source, string $target = '', bool $eqSupport = false): bool
     {
@@ -296,6 +299,7 @@ class Date
 
     /**
      * 判断是否在今天.
+     * @param mixed $date
      */
     public static function inToday($date): bool
     {
@@ -304,6 +308,7 @@ class Date
 
     /**
      * 判断是否在本月.
+     * @param mixed $date
      */
     public static function inThisMonth($date): bool
     {
@@ -313,6 +318,8 @@ class Date
     /**
      * 计算两个日期相差时间.
      * @param int $mode 1:秒数  2:分钟数  3:小时  4:天数
+     * @param mixed $date1
+     * @param mixed $date2
      * @return float
      */
     public static function sub($date1, $date2, int $mode = self::CALCULATE_MODE_MIN)
@@ -329,6 +336,8 @@ class Date
 
     /**
      * 当前时间减去指的分钟数.
+     * @param mixed $date
+     * @param mixed $minutes
      * @return false|string
      */
     public static function subMinutes($date, $minutes)
@@ -341,6 +350,7 @@ class Date
     /**
      * 判断日期是否在指定日期时间内.
      * @param bool $eqSupport 支持相等的边界
+     * @param mixed $date
      */
     public static function between($date, array $dates, bool $eqSupport = false): bool
     {
@@ -349,6 +359,7 @@ class Date
 
     /**
      * 判断日期是否在最近一个月内.
+     * @param mixed $date
      */
     public static function inRecentMonth($date): bool
     {
@@ -358,6 +369,8 @@ class Date
 
     /**
      * 判断两个时间段是否存在交叉.
+     * @param mixed $dateLine1
+     * @param mixed $dateLine2
      */
     public static function hasCross($dateLine1, $dateLine2): bool
     {

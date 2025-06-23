@@ -2113,20 +2113,23 @@
         },
         {
             "name": "hyperf/http-message",
-            "version": "v3.1.48",
+            "version": "v3.1.57",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/http-message.git",
-                "reference": "534ce81af0feaa0c4a9e132af1c6a9c5527a8d85"
+                "reference": "26201c732b9ceb6fa14af3bfa381463d3e1a4e6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/http-message/zipball/534ce81af0feaa0c4a9e132af1c6a9c5527a8d85",
-                "reference": "534ce81af0feaa0c4a9e132af1c6a9c5527a8d85",
+                "url": "https://api.github.com/repos/hyperf/http-message/zipball/26201c732b9ceb6fa14af3bfa381463d3e1a4e6a",
+                "reference": "26201c732b9ceb6fa14af3bfa381463d3e1a4e6a",
                 "shasum": ""
             },
             "require": {
                 "hyperf/codec": "~3.1.0",
+                "hyperf/context": "~3.1.0",
+                "hyperf/contract": "~3.1.0",
+                "hyperf/coroutine": "~3.1.0",
                 "hyperf/engine": "^2.11",
                 "hyperf/support": "~3.1.0",
                 "laminas/laminas-mime": "^2.7",
@@ -2164,7 +2167,7 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/http-message/issues",
-                "source": "https://github.com/hyperf/http-message/tree/v3.1.48"
+                "source": "https://github.com/hyperf/http-message/tree/v3.1.57"
             },
             "funding": [
                 {
@@ -2176,7 +2179,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-12-05T02:41:08+00:00"
+            "time": "2025-06-06T02:41:30+00:00"
         },
         {
             "name": "hyperf/http-server",

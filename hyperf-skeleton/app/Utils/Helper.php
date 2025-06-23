@@ -231,6 +231,9 @@ class Helper
 
     /**
      * 只替换一次字符串.
+     * @param mixed $needle
+     * @param mixed $replace
+     * @param mixed $haystack
      * @return array|mixed|string|string[]
      */
     public static function str_replace_once($needle, $replace, $haystack)
@@ -244,6 +247,7 @@ class Helper
 
     /**
      * 遍历目录.
+     * @param mixed $template_name
      * @return array
      */
     public static function get_dir($template_name)
