@@ -13,11 +13,18 @@ declare(strict_types=1);
 namespace App\Base;
 
 use app\enum\CommonEnum;
-use support\exception\BusinessException;
-use utils\Date;
+use app\Exception\BusinessException;
+use app\Utils\Date;
+use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Contract\RequestInterface;
 
 class BaseService
 {
+
+    // 依赖注入获取请求
+    #[Inject]
+    protected RequestInterface $request;
+
     /**
      * @var bool 数据边界启用状态
      */
@@ -62,6 +69,7 @@ class BaseService
         $this->orderType = $type;
     }
 
+
     /**
      * 分页查询数据.
      * @param mixed $query
@@ -69,11 +77,12 @@ class BaseService
      */
     public function getList($query)
     {
-        $saiType = request()->input('saiType', 'list');
-        $page = request()->input('page', 1);
-        $limit = request()->input('limit', 10);
-        $orderBy = request()->input('orderBy', '');
-        $orderType = request()->input('orderType', $this->orderType);
+
+        $saiType = $this->request->input('saiType', 'list');
+        $page = $this->request->input('page', 1);
+        $limit = $this->request->input('limit', 10);
+        $orderBy = $this->request->input('orderBy', '');
+        $orderType = $this->request->input('orderType', $this->orderType);
 
         if ($page < 1 || $limit < 1) {
             throw new BusinessException('非法参数', CommonEnum::RETURN_CODE_FAIL);
@@ -100,8 +109,8 @@ class BaseService
      */
     public function getAll($query)
     {
-        $orderBy = request()->input('orderBy', '');
-        $orderType = request()->input('orderType', $this->orderType);
+        $orderBy = $this->request->input('orderBy', '');
+        $orderType = $this->request->input('orderType', $this->orderType);
 
         if (empty($orderBy)) {
             $orderBy = $this->orderField !== '' ? $this->orderField : $this->model->getPk();
@@ -112,8 +121,8 @@ class BaseService
 
     public function editStatus($query)
     {
-        $id = request()->post('id', '');
-        $status = request()->post('status', '');
+        $id = $this->request->post('id', '');
+        $status = $this->request->post('status', '');
         if (! in_array($status, [CommonEnum::STATUS_Y, CommonEnum::STATUS_N])) {
             throw new BusinessException('状态值错误', CommonEnum::RETURN_CODE_FAIL);
         }
